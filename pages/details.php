@@ -19,6 +19,7 @@ $cpu_heat = CPU::heat();
 $hdd = Storage::hdd();
 $net_connections = Network::connections();
 $net_eth = Network::ethernet();
+$net_wlan = Network::wireless();
 $users = Users::connected();
 $temp = Temp::temp();
 
@@ -130,7 +131,7 @@ function shell_to_html_table_result($shellExecOutput) {
                 </div>
                 <div id="popover-cpu-head" class="hide">Top CPU eaters</div>
                 <div id="popover-cpu-body" class="hide"><?php echo shell_to_html_table_result($cpu_heat['detail']); ?></div>
-                heat: <span class="text-info"><?php echo $cpu_heat['degrees']; ?>°F</span>
+                heat: <span class="text-info"><?php echo $cpu_heat['degrees']; ?>°C</span>
             </td>
         </tr>
 
@@ -155,11 +156,13 @@ function shell_to_html_table_result($shellExecOutput) {
             <td class="check"><i class="icon-globe"></i> Network</td>
             <td class="icon"><?php echo icon_alert($net_connections['alert']); ?></td>
             <td class="infos">
-                IP: <span class="text-info"><?php echo Rbpi::internalIp(); ?></span> [internal] &middot;
-                <span class="text-info"><?php echo Rbpi::externalIp(); ?></span> [external]
-                <br />received: <strong><?php echo $net_eth['down']; ?>Mb</strong> &middot; sent: <strong><?php echo $net_eth['up']; ?>Mb</strong> &middot; total: <?php echo $net_eth['total']; ?>Mb
-                <br />connections: <?php echo $net_connections['connections']; ?>
-            </td>
+                 IP: <span class="text-info"><?php echo Rbpi::internalIp(); ?></span> [internal] &middot;
+                 <span class="text-info"><?php echo Rbpi::externalIp(); ?></span> [external]
+                 <br /><b>ETH0: </b>received: <strong><?php echo $net_eth['down']; ?>Mb</strong> &middot; sent: <strong><?php echo $net_eth['up']; ?>Mb</strong> &middot; total: <?php echo $net_eth['total']; ?>Mb
+                 <br />connections: <?php echo $net_connections['connections']; ?>
+                 <br /><b>WLAN0: </b>received: <strong><?php echo $net_wlan['down']; ?>Mb</strong> &middot; sent: <strong><?php echo $net_wlan['up']; ?>Mb</strong> &middot; total: <?php echo $net_wlan['total']; ?>Mb
+             </td>
+             </td>
         </tr>
 
         <tr id="check-users">
